@@ -1,3 +1,6 @@
+var express = require('express');
+var app = express();
+
 var cradle = require('cradle');
 var db = new(cradle.Connection)().database('mvml');
 
