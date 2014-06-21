@@ -1,0 +1,3 @@
+---
+- name: Install Packages | npm package dependencies
+  command: npm install
