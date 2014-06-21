@@ -15,7 +15,12 @@ db.exists(function (err, exists) {
 	}
 });
 
+var passport = require('passport');
+//var FacebookStrategy = require('passport-facebook').Strategy;
+// http://passportjs.org/guide/facebook/
+
 var short_id = require('shortid');
+
 
 app.get('/', function(request, response) {
 	response.send('main page');
