@@ -1,4 +1,9 @@
-textarea {
-  width: 100%;
+form.mvml_edit div {
+  width: 49%;
   height: 500px;
+  float: left;
+}
+form.mvml_edit textarea {
+  width: 100%;
+  height: 80%;
 }

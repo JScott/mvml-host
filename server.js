@@ -1,15 +1,25 @@
 var fs = require('fs');
 
+// Express
 var express = require('express');
 var app = express();
 //app.enable('trust proxy');
+
+// body-parser
+var body_parser = require('body-parser');
+app.use(body_parser.json());
+app.use(body_parser.urlencoded());
+
+// ejs
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 
+// HTTP Server
 var http = require('http');
 var server = http.createServer(app);
 
+// Cradle
 var cradle = require('cradle');
 var db = new(cradle.Connection)().database('mvml');
 db.exists(function (err, exists) {
@@ -53,9 +63,21 @@ app.get('/:id', function(request, response) {
 app.get('/edit/:id', function(request, response) {
   db.get(request.params.id, function(error, document) {
     response.render('space/edit', {
-      mvml: 'hi'
+      mvml: document
     });
-    //serve_view('/space/edit.html', response);
+  });
+});
+
+app.post('/edit/:id', function(request, response) {
+  // TODO: check credentials
+  console.log(request.body);
+  console.log(request);
+  db.save(request.params.id, {
+    name: request.body.name,
+    mvml: request.body.mvml,
+    html: '' // TOOD: generate HTML! or do it on the fly client-side
+  }, function(error, db_response) {
+    response.redirect('/'+request.params.id);
   });
 });
 
@@ -69,30 +91,6 @@ app.get('/account/:id', function(request, response) {
 
 server.listen(6865);
 console.log('mvml-host server started on port '+server.address().port);
-
-
-function serve_view(template, response) {
-  template = process.cwd().concat('/views'+template);
-  fs.exists(template, function(exists) {
-    if (!exists) {
-      response.writeHead(404, {"Content-Type": "text/plain"});
-      response.write("404 Not Found\n");
-      response.end();
-      return;
-    }
-    fs.readFile(template, "binary", function(error, file) {
-      if (error) {
-        response.writeHead(500, {"Content-Type": "text/plain"});
-        response.write(err + "\n");
-        response.end();
-        return;
-      }
-      response.writeHead(200);
-      response.write(file, "binary");
-      response.end();
-    });
-  });
-}
 
 /*
 db.get('vader', function (err, doc) {

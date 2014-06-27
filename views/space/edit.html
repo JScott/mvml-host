@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="UTF-8">
+  <meta charset='UTF-8'>
   <title>Edit Space</title>
-  <link rel="stylesheet" href="/main.css">
+  <link rel="stylesheet" href='/main.css'>
 </head>
 <body>
-  <div class='mvml_editor'>
-    <textarea class='mvml' name='mvml'><%= mvml %></textarea>
-  </div>
+  <form action='/edit/<%= mvml.id %>' method='post' class='mvml_edit'>
+    <span>Editing </span><input type='text' name='name' class='name' value='<%= mvml.name %>'>
+    <p>Revision <%= mvml.rev %></p>
+    <div class='mvml'>
+      <h2>MVML</h2>
+      <textarea class='mvml' name='mvml'><%= mvml.mvml %></textarea>
+    </div>
+    <div class='html'>
+      <h2>HTML</h2>
+      <textarea readonly class='html' name='html'><%= mvml.html %></textarea>
+    </div>
+    <!-- TODO: only allow valid, linted YAML/MVML -->
+    <input type='submit' value='Save'>
+  </form>
 </body>
 </html>
