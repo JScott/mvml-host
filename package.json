@@ -1,11 +1,12 @@
 {
-	"name": "mvml-host",
-	"version": "0.0.1",
-	"dependencies": {
-		"cradle": "~0.6.7",
-		"express": "~4.4.4",
-		"passport": "~0.2.0",
-		"passport-facebook", "~1.0.3",
-		"shortid": "~2.0.1"
-	}
+  "name": "mvml-host",
+  "version": "0.0.1",
+  "dependencies": {
+    "cradle": "~0.6.7",
+    "express": "~4.4.4",
+    "passport": "~0.2.0",
+    "passport-facebook": "~1.0.3",
+    "shortid": "~2.0.1",
+    "ejs": "~1.0.0"
+  }
 }

@@ -1,6 +1,11 @@
+var fs = require('fs');
+
 var express = require('express');
 var app = express();
 //app.enable('trust proxy');
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
 
 var http = require('http');
 var server = http.createServer(app);
@@ -21,6 +26,7 @@ var passport = require('passport');
 
 var short_id = require('shortid');
 
+app.use(express.static(process.cwd() + '/public'));
 
 app.get('/', function(request, response) {
 	response.send('main page');
@@ -29,7 +35,9 @@ app.get('/', function(request, response) {
 app.get('/new', function(request, response) {
 	var new_id = short_id.generate();
 	db.save(new_id, {
-		mvml: '', html: ''
+		name:'test space',
+    mvml: '',
+    html: ''
 	}, function(error, db_response) {
 		//var rev = db_response.rev;
 		response.redirect('/edit/'+new_id);
@@ -43,7 +51,12 @@ app.get('/:id', function(request, response) {
 });
 
 app.get('/edit/:id', function(request, response) {
-	response.send('edit '+request.params.id);
+  db.get(request.params.id, function(error, document) {
+    response.render('space/edit', {
+      mvml: 'hi'
+    });
+    //serve_view('/space/edit.html', response);
+  });
 });
 
 app.get('/account', function(request, response) {
@@ -58,6 +71,28 @@ server.listen(6865);
 console.log('mvml-host server started on port '+server.address().port);
 
 
+function serve_view(template, response) {
+  template = process.cwd().concat('/views'+template);
+  fs.exists(template, function(exists) {
+    if (!exists) {
+      response.writeHead(404, {"Content-Type": "text/plain"});
+      response.write("404 Not Found\n");
+      response.end();
+      return;
+    }
+    fs.readFile(template, "binary", function(error, file) {
+      if (error) {
+        response.writeHead(500, {"Content-Type": "text/plain"});
+        response.write(err + "\n");
+        response.end();
+        return;
+      }
+      response.writeHead(200);
+      response.write(file, "binary");
+      response.end();
+    });
+  });
+}
 
 /*
 db.get('vader', function (err, doc) {
