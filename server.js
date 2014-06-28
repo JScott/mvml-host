@@ -36,7 +36,13 @@ var passport = require('passport');
 
 var short_id = require('shortid');
 
+
 app.use(express.static(process.cwd() + '/public'));
+
+/*app.get('/favicon.ico', function(request, response) {
+  response.type('image/x-icon');
+  response.send(200);
+});*/
 
 app.get('/', function(request, response) {
 	response.send('main page');
@@ -56,7 +62,13 @@ app.get('/new', function(request, response) {
 
 app.get('/:id', function(request, response) {
 	db.get(request.params.id, function(error, document) {
-		response.send(document);
+    var object = JSON.parse(document);
+    if(object.html == '') {
+      response.send('<div style="width:100%; text-align:center"><img src="construction.gif"/></div>');
+    }
+    else {
+      response.send(object.html);
+    }
 	});
 });
 
@@ -70,9 +82,7 @@ app.get('/edit/:id', function(request, response) {
 
 app.post('/edit/:id', function(request, response) {
   // TODO: check credentials
-  console.log(request.body);
-  console.log(request);
-  db.save(request.params.id, {
+  db.merge(request.params.id, {
     name: request.body.name,
     mvml: request.body.mvml,
     html: '' // TOOD: generate HTML! or do it on the fly client-side
