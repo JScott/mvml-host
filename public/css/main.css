@@ -1,0 +1,14 @@
+form.mvml_edit div {
+  width: 49%;
+  height: 500px;
+  float: left;
+}
+form.mvml_edit textarea {
+  width: 98%;
+  height: 80%;
+}
+form.mvml_edit pre {
+  width: 98%;
+  height: 80%;
+  overflow: auto;
+}
