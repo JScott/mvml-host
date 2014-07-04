@@ -1,4 +1,5 @@
 var fs = require('fs');
+var http = require('http');
 
 // Express
 var express = require('express');
@@ -30,11 +31,41 @@ db.exists(function (err, exists) {
 	}
 });
 
-var passport = require('passport');
+// Passport
+//var passport = require('passport');
 //var FacebookStrategy = require('passport-facebook').Strategy;
 // http://passportjs.org/guide/facebook/
 
+// ShortID
 var short_id = require('shortid');
+
+// MVML
+var mvml_server_post = {
+  host: '127.0.0.1',
+  port: 6865,
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/mvml'
+  }
+};
+function make_request(options, body, callback) {
+  // TODO: deal with errors
+  var post_request = http.request(options, function(response) {
+    //post_request.setEncoding('utf-8');
+    var response_data = '';
+    response.on('data', function(data) {
+      response_data += data;
+    });
+    response.on('end', function() {
+      callback(response_data);
+    });
+  });
+  console.log(body);
+  post_request.write(body);
+  post_request.end();
+}
+
 
 
 app.use(express.static(process.cwd() + '/public'));
@@ -56,6 +87,7 @@ app.get('/new', function(request, response) {
     html: ''
 	}, function(error, db_response) {
 		//var rev = db_response.rev;
+    // TODO: deal with errors - if(error)
 		response.redirect('/edit/'+new_id);
 	});
 });
@@ -82,12 +114,16 @@ app.get('/edit/:id', function(request, response) {
 
 app.post('/edit/:id', function(request, response) {
   // TODO: check credentials
-  db.merge(request.params.id, {
-    name: request.body.name,
-    mvml: request.body.mvml,
-    html: '' // TOOD: generate HTML! or do it on the fly client-side
-  }, function(error, db_response) {
-    response.redirect('/'+request.params.id);
+  var mvml = request.body.mvml;
+  mvml_server_post.headers['Content-Length'] = mvml.length;
+  make_request(mvml_server_post, mvml, function(response_data){
+    db.merge(request.params.id, {
+      name: request.body.name,
+      mvml: request.body.mvml,
+      html: response_data
+    }, function(error, db_response) {
+      response.redirect('/'+request.params.id);
+    });
   });
 });
 
@@ -99,22 +135,5 @@ app.get('/account/:id', function(request, response) {
 	response.send(request.params.id+'\'s account');
 });
 
-server.listen(6865);
+server.listen(8080);
 console.log('mvml-host server started on port '+server.address().port);
-
-/*
-db.get('vader', function (err, doc) {
-  doc.name; // 'Darth Vader'
-});
-
-db.save('skywalker', {
-  force: 'light',
-  name: 'Luke Skywalker'
-}, function (err, res) {
-  if (err) {
-    // Handle error
-  } else {
-    // Handle success
-  }
-});
-*/

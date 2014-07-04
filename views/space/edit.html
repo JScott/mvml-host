@@ -3,7 +3,7 @@
 <head>
   <meta charset='UTF-8'>
   <title>Edit Space</title>
-  <link rel="stylesheet" href='/main.css'>
+  <link rel="stylesheet" href='css/main.css'>
 </head>
 <body>
   <form action='/edit/<%= mvml.id %>' method='post' class='mvml_edit'>
@@ -15,7 +15,7 @@
     </div>
     <div class='html'>
       <h2>HTML</h2>
-      <textarea readonly class='html' name='html'><%= mvml.html %></textarea>
+      <pre><%= mvml.html %></pre>
     </div>
     <!-- TODO: only allow valid, linted YAML/MVML -->
     <input type='submit' value='Save'>
