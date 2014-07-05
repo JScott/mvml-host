@@ -61,7 +61,6 @@ function make_request(options, body, callback) {
       callback(response_data);
     });
   });
-  console.log(body);
   post_request.write(body);
   post_request.end();
 }
