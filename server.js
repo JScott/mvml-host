@@ -92,6 +92,8 @@ app.get('/new', function(request, response) {
 });
 
 app.get('/:id', function(request, response) {
+  console.log("GET /:id");
+  console.log("id: "+request.params.id);
 	db.get(request.params.id, function(error, document) {
     var object = JSON.parse(document);
     if(object.html == '') {
