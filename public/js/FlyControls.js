@@ -114,15 +114,15 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
   this.touchstart = function( event ) {
     //document.getElementById('info').innerHTML = event.targetTouches.length;
     var touch = event.targetTouches[0];
-    this.pan_start(touch.pageX, touch.pageY);
+    this.pan_start(event);
   };
 
   this.mousedown = function( event ) {
     this.mouseDragging = true;
-    this.pan_start(event.pageX, event.pageY);
+    this.pan_start(event);
   };
 
-  this.pan_start = function(x, y) {
+  this.pan_start = function( event ) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -130,8 +130,8 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
       this.domElement.focus();
     }
     
-    this.panStart.x = x;
-    this.panStart.y = y;
+    this.panStart.x = event.pageX;
+    this.panStart.y = event.pageY;
   };
 
   this.touchmove = function( event ) {
@@ -150,8 +150,8 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
       var halfWidth  = container.size[ 0 ] / 2;
       var halfHeight = container.size[ 1 ] / 2;
 
-      this.moveState.yawLeft   = -( ( event.pageX - container.offset[ 0 ] ) - halfWidth  ) / halfWidth;
-      this.moveState.pitchDown =  ( ( event.pageY - container.offset[ 1 ] ) - halfHeight ) / halfHeight;
+      this.moveState.yawLeft   = -( ( x - container.offset[ 0 ] ) - halfWidth  ) / halfWidth;
+      this.moveState.pitchDown =  ( ( y - container.offset[ 1 ] ) - halfHeight ) / halfHeight;
 
       this.updateRotationVector();
     }
@@ -191,15 +191,15 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
   this.touchend = function( event ) {
     //document.getElementById('info').innerHTML = event.targetTouches.length;
     var touch = event.targetTouches[0];
-    this.pan_end();
+    this.pan_end(event);
   };
 
   this.mouseup = function( event ) {
     this.mouseDragging = false;
-    this.pan_end();
+    this.pan_end(event);
   };
 
-  this.pan_end = function() {
+  this.pan_end = function( event ) {
     event.preventDefault();
     event.stopPropagation();
 
