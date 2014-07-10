@@ -32,27 +32,17 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
   this.lookVector = new THREE.Vector3( 0, 0, -1 );
 
   this.handleEvent = function ( event ) {
-
     if ( typeof this[ event.type ] == 'function' ) {
-
       this[ event.type ]( event );
-
     }
-
   };
 
   this.keydown = function( event ) {
-
     if ( event.altKey ) {
-
       return;
-
     }
-
     //event.preventDefault();
-
     switch ( event.keyCode ) {
-
       case 16: /* shift */ this.movementSpeedMultiplier = .1; break;
 
       case 87: /*W*/ this.moveState.forward = 1; break;
@@ -72,18 +62,13 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
 
       case 81: /*Q*/ this.moveState.rollLeft = 1; break;
       case 69: /*E*/ this.moveState.rollRight = 1; break;
-
     }
-
     this.updateMovementVector();
     this.updateRotationVector();
-
   };
 
   this.keyup = function( event ) {
-
     switch( event.keyCode ) {
-
       case 16: /* shift */ this.movementSpeedMultiplier = 1; break;
 
       case 87: /*W*/ this.moveState.forward = 0; break;
@@ -103,18 +88,15 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
 
       case 81: /*Q*/ this.moveState.rollLeft = 0; break;
       case 69: /*E*/ this.moveState.rollRight = 0; break;
-
     }
-
     this.updateMovementVector();
     this.updateRotationVector();
-
   };
 
   this.touchstart = function( event ) {
     //document.getElementById('info').innerHTML = event.targetTouches.length;
     var touch = event.targetTouches[0];
-    this.pan_start(event);
+    this.pan_start(event, touch);
   };
 
   this.mousedown = function( event ) {
@@ -122,16 +104,19 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
     this.pan_start(event);
   };
 
-  this.pan_start = function( event ) {
+  this.pan_start = function( event, touch ) {
     event.preventDefault();
     event.stopPropagation();
+		var touch_passed = arguments.length > 1
+		var x = touch_passed ? touch.pageX : event.pageX;
+		var y = touch_passed ? touch.pageY : event.pageY;
 
     if ( this.domElement !== document ) {
       this.domElement.focus();
     }
     
-    this.panStart.x = event.pageX;
-    this.panStart.y = event.pageY;
+    this.panStart.x = x;
+    this.panStart.y = y;
   };
 
   this.touchmove = function( event ) {
