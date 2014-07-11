@@ -11,7 +11,7 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
   this.domElement = document;
 
   // API
-
+  this.gravity = 9.8;
   this.movementSpeed = 1.0;
   this.rollSpeed = 0.005;
 
@@ -107,9 +107,9 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
   this.pan_start = function( event, touch ) {
     event.preventDefault();
     event.stopPropagation();
-		var touch_passed = arguments.length > 1
-		var x = touch_passed ? touch.pageX : event.pageX;
-		var y = touch_passed ? touch.pageY : event.pageY;
+    var touch_passed = arguments.length > 1
+    var x = touch_passed ? touch.pageX : event.pageX;
+    var y = touch_passed ? touch.pageY : event.pageY;
 
     if ( this.domElement !== document ) {
       this.domElement.focus();
@@ -197,13 +197,14 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
   this.update = function( delta ) {
     var moveMult = delta * this.movementSpeed;
     var rotMult = delta * this.rollSpeed;
-    var forward = this.lookVector.clone();
-    forward.y = 0;
-    var right = forward.clone().cross( new THREE.Vector3(0,1,0) );
+    var forward = this.lookVector.clone().setY(0);
+    var up = new THREE.Vector3(0,1,0);
+    var right = forward.clone().cross(up);
 
     var movement = right.clone().multiplyScalar(this.moveVector.x);
     movement.add( forward.multiplyScalar(-this.moveVector.z) );
     movement.normalize().multiplyScalar(moveMult);
+    movement.add( up.multiplyScalar(-this.gravity) );
 
     var distance = this.collision.distance( this.mesh, movement );
     if (distance > 0) {
