@@ -2,14 +2,16 @@
  * @author James Baicoianu / http://www.baicoianu.com/
  */
 
-THREE.FlyControls = function ( camera, mesh ) {
+THREE.FlyControls = function ( camera, mesh, collision_commander ) {
 
   this.camera = camera;
   this.mesh = mesh;
+  this.collision = collision_commander;
 
   this.domElement = document;
 
   // API
+  this.gravity = 9.8;
   this.movementSpeed = 1.0;
   this.rollSpeed = 0.005;
 
@@ -202,6 +204,12 @@ THREE.FlyControls = function ( camera, mesh ) {
     var movement = right.clone().multiplyScalar(this.moveVector.x);
     movement.add( forward.multiplyScalar(-this.moveVector.z) );
     movement.normalize().multiplyScalar(moveMult);
+    movement.add( up.multiplyScalar(-this.gravity) );
+
+    var distance = this.collision.distance( this.mesh, movement );
+    if (distance > 0) {
+      movement.normalize().multiplyScalar(distance - collision.theta);
+    }
 
     //if (clock.elapsedTime % 1 < 0.01) console.log(movement);
     this.camera.position.add(movement);
