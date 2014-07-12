@@ -114,7 +114,7 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
     if ( this.domElement !== document ) {
       this.domElement.focus();
     }
-    
+
     this.panStart.x = x;
     this.panStart.y = y;
   };
@@ -157,7 +157,7 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
       this.moveState.yawLeft = 0;
       this.moveState.pitchDown = 0;
       this.updateRotationVector();
-     
+
       this.moveState.back = 0;
       this.moveState.forward = 1;
       this.updateMovementVector();
@@ -166,7 +166,7 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
       this.moveState.yawLeft = 0;
       this.moveState.pitchDown = 0;
       this.updateRotationVector();
-     
+
       this.moveState.back = 1;
       this.moveState.forward = 0;
       this.updateMovementVector();
@@ -194,6 +194,15 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
     this.updateRotationVector();
   };
 
+  this.move = function( vector ) {
+    var distance = this.collision.distance( this.mesh, vector );
+    if (distance > 0) {
+      vector.normalize().multiplyScalar(distance - collision.theta);
+    }
+    this.camera.position.add(vector);
+    this.mesh.position.add(vector);
+  }
+
   this.update = function( delta ) {
     var moveMult = delta * this.movementSpeed;
     var rotMult = delta * this.rollSpeed;
@@ -201,19 +210,13 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
     var up = new THREE.Vector3(0,1,0);
     var right = forward.clone().cross(up);
 
-    var movement = right.clone().multiplyScalar(this.moveVector.x);
-    movement.add( forward.multiplyScalar(-this.moveVector.z) );
-    movement.normalize().multiplyScalar(moveMult);
-    movement.add( up.multiplyScalar(-this.gravity) );
-
-    var distance = this.collision.distance( this.mesh, movement );
-    if (distance > 0) {
-      movement.normalize().multiplyScalar(distance - collision.theta);
-    }
-
     //if (clock.elapsedTime % 1 < 0.01) console.log(movement);
-    this.camera.position.add(movement);
-    this.mesh.position.add(movement);
+    var movement_xz = right.clone().multiplyScalar(this.moveVector.x);
+    movement_xz.add( forward.multiplyScalar(-this.moveVector.z) );
+    movement_xz.normalize().multiplyScalar(moveMult);
+    var movement_y = up.clone().multiplyScalar(-this.gravity);
+    this.move(movement_xz);
+    this.move(movement_y);
 
     var matrix = new THREE.Matrix4().makeRotationAxis(right, this.rotationVector.y * rotMult);
     this.lookVector.applyMatrix4(matrix);
