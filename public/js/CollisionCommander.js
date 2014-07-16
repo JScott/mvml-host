@@ -1,7 +1,7 @@
 THREE.CollisionCommander = function () {
 
   this.mesh_list = [];
-  this.theta = 0.1;
+  this.theta = 0.01;
 
   this.distance = function(mesh, movement) {
     // TODO: better vertices. slow and some vertices seem to take priority or something? swapping these *shouldn't* make a difference
