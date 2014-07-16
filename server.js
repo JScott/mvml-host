@@ -75,7 +75,7 @@ app.use(express.static(process.cwd() + '/public'));
 });*/
 
 app.get('/', function(request, response) {
-	response.send('main page');
+	response.send('Main page. See <a href="/ZJQomW9Ve">this space</a> with <a href="/edit/ZJQomW9Ve">this markup</a> for spec example.<br><a href="/new">New space</a><br>');
 });
 
 app.get('/new', function(request, response) {
