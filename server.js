@@ -67,7 +67,7 @@ function make_request(options, body, callback) {
 
 
 
-app.use(express.static(process.cwd() + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 /*app.get('/favicon.ico', function(request, response) {
   response.type('image/x-icon');
@@ -75,7 +75,7 @@ app.use(express.static(process.cwd() + '/public'));
 });*/
 
 app.get('/', function(request, response) {
-	response.send('Main page. See <a href="/ZJQomW9Ve">this space</a> with <a href="/edit/ZJQomW9Ve">this markup</a> for spec example.<br><a href="/new">New space</a><br>');
+  response.render('index');
 });
 
 app.get('/new', function(request, response) {
@@ -91,7 +91,7 @@ app.get('/new', function(request, response) {
 	});
 });
 
-app.get('/:id', function(request, response) {
+app.get('/space/:id', function(request, response) {
   console.log("GET /:id");
   console.log("id: "+request.params.id);
 	db.get(request.params.id, function(error, document) {
@@ -110,7 +110,7 @@ app.get('/:id', function(request, response) {
 	});
 });
 
-app.get('/edit/:id', function(request, response) {
+app.get('/space/edit/:id', function(request, response) {
   db.get(request.params.id, function(error, document) {
     response.render('space/edit', {
       mvml: document
@@ -128,7 +128,7 @@ app.post('/edit/:id', function(request, response) {
       mvml: request.body.mvml,
       html: response_data
     }, function(error, db_response) {
-      response.redirect('/'+request.params.id);
+      response.redirect('/space/'+request.params.id);
     });
   });
 });
@@ -141,5 +141,6 @@ app.get('/account/:id', function(request, response) {
 	response.send(request.params.id+'\'s account');
 });
 
-server.listen(8080);
+
+server.listen(process.argv[2] || 8080);
 console.log('mvml-host server started on port '+server.address().port);
