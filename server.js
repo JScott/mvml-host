@@ -75,7 +75,7 @@ app.use(express.static(process.cwd() + '/public'));
 });*/
 
 app.get('/', function(request, response) {
-	response.send('main page');
+	response.send('Main page. See <a href="/ZJQomW9Ve">this space</a> with <a href="/edit/ZJQomW9Ve">this markup</a> for spec example.<br><a href="/new">New space</a><br>');
 });
 
 app.get('/new', function(request, response) {
@@ -92,13 +92,20 @@ app.get('/new', function(request, response) {
 });
 
 app.get('/:id', function(request, response) {
+  console.log("GET /:id");
+  console.log("id: "+request.params.id);
 	db.get(request.params.id, function(error, document) {
-    var object = JSON.parse(document);
-    if(object.html == '') {
-      response.send('<div style="width:100%; text-align:center"><img src="construction.gif"/></div>');
+    if (error) {
+      response.send('Invalid space ID');
     }
     else {
-      response.send(object.html);
+      var object = JSON.parse(document);
+      if(object.html == '') {
+        response.send('<div style="width:100%; text-align:center"><img src="construction.gif"/></div>');
+      }
+      else {
+        response.send(object.html);
+      }
     }
 	});
 });
