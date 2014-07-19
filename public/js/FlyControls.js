@@ -1,12 +1,9 @@
-/**
- * @author James Baicoianu / http://www.baicoianu.com/
- */
+// Original FlyControls by James Baicoianu (http://www.baicoianu.com/)
 
-THREE.FlyControls = function ( camera, mesh, collision_commander ) {
+THREE.FlyControls = function ( camera, mesh ) {
 
   this.camera = camera;
   this.mesh = mesh;
-  this.collision = collision_commander;
 
   this.domElement = document;
 
@@ -180,7 +177,8 @@ THREE.FlyControls = function ( camera, mesh, collision_commander ) {
   };
 
   this.move = function( vector ) {
-    var distance = this.collision.distance( this.mesh, vector );
+    // TODO: fix for physijs
+    var distance = -1;//this.collision.distance( this.mesh, vector );
     if (distance > 0) {
       vector.normalize().multiplyScalar(distance - collision.theta);
       this.jumping = false;
