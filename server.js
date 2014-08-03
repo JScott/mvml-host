@@ -75,7 +75,7 @@ app.use(express.static(__dirname + '/public'));
 });*/
 
 app.get('/', function(request, response) {
-  response.render('index');
+  response.render('info');
 });
 
 app.get('/new', function(request, response) {
