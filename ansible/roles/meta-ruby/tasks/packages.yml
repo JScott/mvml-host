@@ -2,4 +2,4 @@
 - name: Install Packages | apt
   apt: state=latest pkg={{ item }}
   with_items:
-    - couchdb
+    - ruby2.1

@@ -1,0 +1,27 @@
+---
+- name: Directory Exists | /opt/mvml/
+  file:
+    state: directory
+    path: /opt/mvml/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Pull Repo | mvml
+  git:
+    repo: git@github.com:JScott/mvml.git
+    dest: /opt/mvml/parse
+    version: master
+
+- name: Install Packages | gemfile
+  command: bundle install arg1
+  args:
+    chdir: /opt/mvml/parse/
+
+# - name: Install Packages | gem dependencies
+#   gem:
+#     name: {{ item.name }}
+#     version: {{ item.version }}
+#     state: present
+#   with_items:
+#     - { name: sinatra, version: 1.4 }
