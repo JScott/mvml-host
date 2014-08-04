@@ -1,8 +1,0 @@
----
-- name: Upload Config | upstart | mvml
-  template:
-    src: etc/init/mvml.conf
-    dest: /etc/init/mvml.conf
-    owner: root
-    group: root
-    mode: 0644

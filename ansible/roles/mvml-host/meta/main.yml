@@ -1,4 +1,0 @@
----
-dependencies:
-- { role: meta-nodejs }
-- { role: meta-couchdb }
