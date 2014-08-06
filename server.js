@@ -64,8 +64,20 @@ function make_request(options, body, callback) {
   post_request.write(body);
   post_request.end();
 }
-
-
+function convert_mvml(mvml_string, callback) {
+  mvml_server_post.headers['Content-Length'] = mvml_string.length;
+  make_request( mvml_server_post, mvml_string, callback );
+}
+function convert_mvml_file(file_path, callback) {
+  fs.readFile(file_path, function(error, data) {
+    if (error) {
+      callback('Error reading MVML file: '+data);
+    }
+    convert_mvml(data, function(html) {
+      callback(html);
+    });
+  });
+}
 
 app.use(express.static(__dirname + '/public'));
 
@@ -76,6 +88,12 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response) {
   response.render('info');
+});
+
+app.get('/example/spec', function(request, response) {
+  convert_mvml_file('./examples/spec.mvml', function(html) {
+    response.send(html);
+  });
 });
 
 app.get('/new', function(request, response) {
@@ -96,7 +114,7 @@ app.get('/space/:id', function(request, response) {
   console.log("id: "+request.params.id);
 	db.get(request.params.id, function(error, document) {
     if (error) {
-      response.send('Invalid space ID');
+      response.send('Invalid space ID: '+request.params.id);
     }
     else {
       var object = JSON.parse(document);
@@ -121,13 +139,15 @@ app.get('/space/edit/:id', function(request, response) {
 app.post('/edit/:id', function(request, response) {
   // TODO: check credentials
   var mvml = request.body.mvml;
-  mvml_server_post.headers['Content-Length'] = mvml.length;
-  make_request(mvml_server_post, mvml, function(response_data){
+  convert_mvml(mvml, function(html){
     db.merge(request.params.id, {
       name: request.body.name,
       mvml: request.body.mvml,
-      html: response_data
+      html: html
     }, function(error, db_response) {
+      if (error) {
+        response.send("Couldn't save MVML entry: "+request.params.id);
+      }
       response.redirect('/space/'+request.params.id);
     });
   });
