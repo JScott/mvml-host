@@ -79,6 +79,9 @@ function convert_mvml_file(file_path, callback) {
   });
 }
 
+express.static.mime.define({
+  'text/mvml': ['mvml']
+});
 app.use(express.static(__dirname + '/public'));
 
 /*app.get('/favicon.ico', function(request, response) {
