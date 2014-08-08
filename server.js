@@ -93,8 +93,8 @@ app.get('/', function(request, response) {
   response.render('info');
 });
 
-app.get('/example/spec', function(request, response) {
-  convert_mvml_file('./examples/spec.mvml', function(html) {
+app.get('/mvml/:file', function(request, response) {
+  convert_mvml_file('./public/mvml/'+request.params.file+'.mvml', function(html) {
     response.send(html);
   });
 });
