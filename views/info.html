@@ -9,9 +9,17 @@
     <title> MVML </title>
     <!-- Bootstrap core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body { padding: 50px 0 20px 0; }
-    </style>
+    <link href="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js" rel="stylesheet">
+    <link href="/css/info.css" rel="stylesheet">
+    <script type="text/javascript">
+      (function($) {
+        window.fnames = new Array();
+        window.ftypes = new Array();
+        fnames[0]='EMAIL';
+        ftypes[0]='email';
+      }(jQuery));
+      var $mcj = jQuery.noConflict(true);
+    </script>
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -41,54 +49,86 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>MetaVerse Markup Language</h1>
-        <p>
-          A simple language for 3D spaces on the Internet.
-        </p>
-        <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+        <div class="header text-center">
+          <h1>MetaVerse Markup Language</h1>
+          <p>
+            3D worlds for everyone!
+          </p>
+        </div>
+
+        <div class="hidden-xs row showcase">
+          <div class="pull-left">
+            <iframe src="/mvml/spec.mvml" class="img-thumbnail"></iframe>
+          </div>
+          <div class="pull-right">
+            <iframe src="/mvml/spec" class="img-rounded"></iframe>
+          </div>
+        </div>
+
+        <div class="visible-xs-block btn-group btn-group-lg btn-group-justified">
+          <a class="btn btn-default" href="/mvml/spec.mvml">Read it</a>
+          <a class="btn btn-primary" href="/mvml/spec">Play it</a>
+        </div>
+
+        <form action="//jvscott.us7.list-manage.com/subscribe/post?u=0ee56a43e1a95dd484a5b7c26&amp;id=0f3f8450d9"
+         method="post"
+         id="mc-embedded-subscribe-form"
+         name="mc-embedded-subscribe-form"
+         class="validate form-inline subscribe"
+         target="_blank"
+         role="form"
+         novalidate>
+          <div class="form-group">
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+              <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-send"></span></span>
+                <input type="email" name="EMAIL" class="input-lg form-control" placeholder="Your Email Address">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" name="subscribe" class="btn-block btn btn-primary btn-lg">Get Early Hosting</button>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <div class="col-md-5"></div>
+          <a class="self-host btn btn-link col-md-2" href="https://github.com/JScott/mvml">or host it yourself!</a>
+          <div class="col-md-5"></div>
+        </form>
       </div>
     </div>
     <div class="container">
-      <h1>Why is MVML the best choice?</h1>
-      <p>
-        You have a
-        <a href='http://janusvr.com/'>lot</a>
-        <a href='http://threejs.org/'>of</a>
+      <h1>Why is MVML for me?</h1>
+      <p class="lead">
+        You have
+        <a href='http://janusvr.com/'>a</a>
+        <a href='http://unity3d.com/'>lot</a>
+        <a href='http://secondlife.com/'>of</a>
         <a href='http://www.x3dom.org/'>choices</a>
-        to render 3D web content.
-        However, you'll find that MVML combines the best of the competition.
+        to code one-off 3D web content.
+        MVML specializes in building a network of social, first-person spaces that anyone can utilize.
       </p>
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4">
           <h2>Portable</h2>
-          <p>
-            MVML works with your favourite browser and webpages.
-          </p>
           <ul>
-              <li>Renders in Chrome, Firefox, and IE</li>
-              <li>Built to work on mobile browsers as well</li>
+              <li>Renders in your favourite browser</li>
+              <li>Built with mobile in mind</li>
           </ul>
         </div>
         <div class="col-md-4">
-          <h2>Simple</h2>
-          <p>
-            MVML exposes advanced concepts in simple ways.
-          </p>
+          <h2>Accessible</h2>
           <ul>
             <li>Easy for non-technical artists to write</li>
-            <li>Built on easy-to-understand <a href='http://threejs.org/'>three.js</a> abstractions</li>
-            <li><a href='http://www.yaml.org/'>YAML</a>-based syntax instead of bloated XML</li>
+            <li>A consistent first-person experience</li>
           </ul>
        </div>
         <div class="col-md-4">
           <h2>Robust</h2>
-          <p>
-            MVML benefits from the web dev community.
-          </p>
           <ul>
-            <li>Uses the same infrastructure as 2D web</li>
-            <li><a href='http://github.org/JScott/mvml-ops'>Deployable</a> with DevOps best practices</li>
+            <li>Built on Open Source web dev libraries</li>
+            <li>Exposes JS for advanced scripting</li>
           </ul>
         </div>
       </div>

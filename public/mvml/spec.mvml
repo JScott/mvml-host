@@ -1,6 +1,5 @@
 ---
 title: Hello metaverse!
-motd: This is just a test.
 player:
   move_speed: 15
   turn_speed: 1.5
