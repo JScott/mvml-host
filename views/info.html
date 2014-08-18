@@ -7,30 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title> MVML </title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <!--<script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/info.css" rel="stylesheet">
-    <script type="text/javascript">
-      $(document).ready(function() {
-        var content = "<a href='http://janusvr.com/'>JanusVR</a><br>";
-        content += "<a href='http://secondlife.com/'>Second Life</a><br>";
-        content += "<a href='http://unity3d.com/'>Unity3D</a><br>";
-        content += "<a href='http://www.x3dom.org/'>X3DOM</a>";
-        $('a.other-options').popover({
-          html: true,
-          content: content
-        });
-      });
-      /*(function($) {
-        window.fnames = new Array();
-        window.ftypes = new Array();
-        fnames[0]='EMAIL';
-        ftypes[0]='email';
-      }(jQuery));
-      var $mcj = jQuery.noConflict(true);*/
-    </script>
   </head>
   <body>
     <div class="jumbotron">
@@ -103,11 +81,27 @@
       <footer>
         <p>&copy; Justin Scott 2014</p>
       </footer>
-    </div> <!-- /container -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    -->
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var content = "<a href='http://janusvr.com/'>JanusVR</a><br>";
+        content += "<a href='http://secondlife.com/'>Second Life</a><br>";
+        content += "<a href='http://unity3d.com/'>Unity3D</a><br>";
+        content += "<a href='http://www.x3dom.org/'>X3DOM</a>";
+        $('a.other-options').popover({
+          html: true,
+          content: content
+        });
+      });
+      /*(function($) {
+        window.fnames = new Array();
+        window.ftypes = new Array();
+        fnames[0]='EMAIL';
+        ftypes[0]='email';
+      }(jQuery));
+      var $mcj = jQuery.noConflict(true);*/
+    </script>
   </body>
 </html>
