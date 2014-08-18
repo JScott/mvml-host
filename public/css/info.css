@@ -3,7 +3,12 @@ body {
 }
 
 div.showcase {
-  padding: 0 30px 20px 30px;
+  margin: 0 20px;
+}
+
+div.showcase,
+div.read-play {
+  padding-bottom: 20px;
 }
 div.showcase div {
   width: 50%;
@@ -13,7 +18,7 @@ div.showcase div {
 
 form.subscribe,
 a.self-host {
-  margin: 30px 0 0 0;
+  margin: 20px 0 0 0;
 }
 
 .showcase iframe,
@@ -21,4 +26,16 @@ form.subscribe .form-group,
 form.subscribe .input-group {
   width: 100%;
   height: 100%;
+}
+
+.subscribe a.btn {
+  width: 100%;
+}
+
+.lead .popover-content {
+  font-size: 14px;
+}
+
+.read-play {
+  
 }

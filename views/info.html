@@ -7,18 +7,29 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title> MVML </title>
-    <!-- Bootstrap core CSS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!--<script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js" rel="stylesheet">
     <link href="/css/info.css" rel="stylesheet">
     <script type="text/javascript">
-      (function($) {
+      $(document).ready(function() {
+        var content = "<a href='http://janusvr.com/'>JanusVR</a><br>";
+        content += "<a href='http://secondlife.com/'>Second Life</a><br>";
+        content += "<a href='http://unity3d.com/'>Unity3D</a><br>";
+        content += "<a href='http://www.x3dom.org/'>X3DOM</a>";
+        $('a.other-options').popover({
+          html: true,
+          content: content
+        });
+      });
+      /*(function($) {
         window.fnames = new Array();
         window.ftypes = new Array();
         fnames[0]='EMAIL';
         ftypes[0]='email';
       }(jQuery));
-      var $mcj = jQuery.noConflict(true);
+      var $mcj = jQuery.noConflict(true);*/
     </script>
   </head>
   <body>
@@ -31,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"> MVML </a>
+          <a class="navbar-brand" href="#">MVML</a>
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" role="form">
@@ -41,7 +52,7 @@
             <div class="form-group">
               <input type="password" placeholder="Password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success"> Sign in </button>
+            <button type="submit" class="btn btn-success">Sign in</button>
           </form>
         </div>
       </div>
@@ -65,12 +76,12 @@
           </div>
         </div>
 
-        <div class="visible-xs-block btn-group btn-group-lg btn-group-justified">
+        <div class="read-play visible-xs-block btn-group btn-group-lg btn-group-justified">
           <a class="btn btn-default" href="/mvml/spec.mvml">Read it</a>
           <a class="btn btn-primary" href="/mvml/spec">Play it</a>
         </div>
 
-        <form action="//jvscott.us7.list-manage.com/subscribe/post?u=0ee56a43e1a95dd484a5b7c26&amp;id=0f3f8450d9"
+        <!--<form action="//jvscott.us7.list-manage.com/subscribe/post?u=0ee56a43e1a95dd484a5b7c26&amp;id=0f3f8450d9"
          method="post"
          id="mc-embedded-subscribe-form"
          name="mc-embedded-subscribe-form"
@@ -87,26 +98,36 @@
               </div>
             </div>
             <div class="col-md-3">
-              <button type="submit" name="subscribe" class="btn-block btn btn-primary btn-lg">Get Early Hosting</button>
+              <button type="submit" name="subscribe" class="btn-block btn btn-primary btn-lg">
+                Get Hosting Early
+              </button>
             </div>
-            <div class="col-md-2"></div>
           </div>
           <div class="col-md-5"></div>
-          <a class="self-host btn btn-link col-md-2" href="https://github.com/JScott/mvml">or host it yourself!</a>
+          <a class="self-host btn btn-link col-md-2" href="https://github.com/JScott/mvml">
+            or host it yourself!
+          </a>
           <div class="col-md-5"></div>
-        </form>
+        </form>-->
+
+        <div class="subscribe">
+          <div class="col-md-3 col-sm-3"></div>
+          <div class="col-md-4 col-sm-4">
+            <a class="btn btn-primary btn-lg" href="http://eepurl.com/0-ZR1">API</a>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <a class="btn btn-link btn-lg" href="https://github.com/JScott/mvml">self-hosted</a>
+          </div>
+          <div class="col-md-3 col-sm-2"></div>
+        </div>
       </div>
     </div>
     <div class="container">
       <h1>Why is MVML for me?</h1>
       <p class="lead">
-        You have
-        <a href='http://janusvr.com/'>a</a>
-        <a href='http://unity3d.com/'>lot</a>
-        <a href='http://secondlife.com/'>of</a>
-        <a href='http://www.x3dom.org/'>choices</a>
-        to code one-off 3D web content.
-        MVML specializes in building a network of social, first-person spaces that anyone can utilize.
+        <a class="other-options" data-toggle="popover" data-placement="bottom">Many frameworks</a>
+        provide one-off 3D web experiences and proprietary 3D browsers.<br>
+        MVML specializes in helping you build and share a network of first-person worlds.
       </p>
       <!-- Example row of columns -->
       <div class="row">
