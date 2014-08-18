@@ -46,7 +46,7 @@ var mvml_server_post = {
   path: '/',
   method: 'POST',
   headers: {
-    'Content-Type': 'application/mvml'
+    'Content-Type': 'text/mvml'
   }
 };
 function make_request(options, body, callback) {
