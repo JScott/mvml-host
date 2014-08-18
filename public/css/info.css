@@ -32,6 +32,12 @@ form.subscribe .input-group {
   font-size: 14px;
 }
 
-.read-play {
-  
+.jumbotron {
+  margin-bottom: 0;
+}
+section {
+  padding: 30px 0;
+}
+section.shaded {
+  background: #eee;
 }
