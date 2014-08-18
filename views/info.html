@@ -80,10 +80,27 @@
     </div>
     </section>
     <section class="getting-started shaded">
-    <div class="container">
+      <div class="container">
         <h1>Getting Started</h1>
-      </section>
-    </div>
+        <p>
+          MVML isn't natively supported by browsers so it needs to be parsed into HTML/JS.
+          You can utilize our API or host your own MVML parsing server to do this for you.
+        </p>
+        <h2>Quick</h2>
+        <p>
+          The easiest way to utilize this is to make an API request via JavaScript.
+          <a href="https://gist.github.com/JScott/06157326c997500a91b8">These examples</a>
+          show you how to have the JavaScript do the API call for you and edit MVML in-line
+          or in another file.
+        </p>
+        <h2>Advanced</h2>
+        <p>
+          If you have access to server-side code you can also make a call from there.
+          <a href="https://gist.github.com/JScott/e396897ffb61d62e7b99">These examples</a>
+          show how I do it for this very page in NodeJS.
+          It should be pretty similar across frameworks.
+        </p>
+      </div>
     </section>
       <hr>
     <footer>
@@ -104,14 +121,18 @@
           html: true,
           content: content
         });
+
+        var http = new XMLHttpRequest();
+        var url = "/api-js.html";
+        http.open("GET", url, true);
+
+    http.onreadystatechange = function() {
+      if(http.readyState == 4 && http.status == 200) {
+        $('.api-js').text(http.responseText);
+      }
+    }
+    http.send();
       });
-      /*(function($) {
-        window.fnames = new Array();
-        window.ftypes = new Array();
-        fnames[0]='EMAIL';
-        ftypes[0]='email';
-      }(jQuery));
-      var $mcj = jQuery.noConflict(true);*/
     </script>
   </body>
 </html>
