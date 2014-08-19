@@ -44,9 +44,9 @@
         </div>
       </div>
     </div>
-    <section class="getting-started">
+    <section class="usage">
       <div class="container">
-        <h1>Getting Started</h1>
+        <h1 class="page-header">Usage</h1>
         <p class="lead">
           MVML isn't natively supported by browsers so it needs to be parsed into HTML and JavaScript
           Our API makes that an easy step for you.
@@ -85,6 +85,55 @@
           Privacy issues? You can also host the MVML parsing server yourself.
           Check out the <a href="https://github.com/JScott/mvml">Github</a> page for more details.
         </p>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section class="syntax">
+      <div class="container">
+        <h1 class="page-header">Syntax</h1>
+        <p class="lead">
+          Just like HTML, MVML is built out of a syntax of tags.
+          In order to build worlds, you'll need to understand these.
+        </p>
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <h2>YAML</h2>
+          <p>
+            Just like HTML is essentially <a href="http://www.w3.org/XML/">XML</a>,
+            MVML is essentially <a href="http://www.yaml.org/">YAML</a>.
+            This is important because unlike XML, YAML is very strict on indentation.
+            Even missing a space could cause an error which forces us to write legibly.
+          </p>
+          <pre><code class="yaml"># Good:
+title: Hello metaverse!
+scene:
+  - primative: sphere
+  - primative: box
+    color: red
+
+# Bad
+ title: Hey metaverse
+  scene:
+- primative:
+sphere
+- primative: box
+color: red
+          </code></pre>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <h2>Components</h2>
+          <p>
+            You create worlds in MVML by stringing together components such as the
+            <code>scene</code> tag or <code>player</code> tag. Knowing how to use these
+            is important.
+          </p>
+          <p>
+            Unfortunately I don't have full documentation of this yet. Until I do,
+            please read <a href="http://dev.mvml.net/mvml/spec.mvml">spec.mvml</a>
+            which uses each component and its properties at least once. You can see it
+            rendered <a href="http://dev.mvml.net/mvml/spec">here</a>.
+          </p>
         </div>
       </div>
       </div>
