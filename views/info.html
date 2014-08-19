@@ -8,6 +8,7 @@
     <meta name="author" content="">
     <title> MVML </title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
     <link href="/css/info.css" rel="stylesheet">
   </head>
   <body>
@@ -35,9 +36,11 @@
         </div>
 
         <div class="subscribe">
-          <div class="col-md-12 col-sm-12">
+          <div class="col-md-3 col-sm-2"></div>
+          <div class="col-md-6 col-sm-8">
             <a class="btn btn-primary btn-lg" href="http://eepurl.com/0-ZR1">Get Started</a>
           </div>
+          <div class="col-md-3 col-sm-2"></div>
         </div>
       </div>
     </div>
@@ -45,7 +48,7 @@
     <div class="container">
       <h1>Why is MVML for me?</h1>
       <p class="lead">
-        <a class="other-options" data-toggle="popover" data-placement="bottom">Many frameworks</a>
+        <a class="other-options" data-toggle="popover" data-placement="bottom">Many other frameworks</a>
         provide one-off 3D web experiences and proprietary 3D browsers.
         MVML specializes in helping you build and share a network of first-person worlds.
       </p>
@@ -78,7 +81,7 @@
       <div class="container">
         <h1>Getting Started</h1>
         <p class="lead">
-          MVML isn't natively supported by browsers so it needs to be parsed into HTML/JS.
+          MVML isn't natively supported by browsers so it needs to be parsed into HTML and JavaScript.
           Our API makes that an easy step for you.
         </p>
       <div class="row">
@@ -88,15 +91,17 @@
           The quickest way to utilize this is to make an API request from an HTML page.
           We've built a helper script that can load your MVML from file or directly:
         </p>
-        <code><pre>
-&lt;head>
+        <pre><code class="html">&lt;head>
   &lt;script src="http://content.dev.mvml.net:6865/js/mvml-api.js">&lt;/script>
   &lt;script>
     MVML.load_file("http://dev.mvml.net/mvml/spec.mvml");
   &lt;/script>
-&lt;/head></pre></code>
+&lt;/head></code></pre>
         <p>
-          That's it! You can even use <code>MVML.load_string</code> to get the MVML from
+          That's it! Just upload that to your website.
+        </p>
+        <p>
+          You can even use <code>MVML.load_string</code> to get the MVML from
           wherever is most convenient. You could even grab it from the <code>body</code> tag.
           Be careful of indentation though, MVML is very strict on whitespace.
         </p>
@@ -124,9 +129,11 @@
       </div>
     </footer>
     </div>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+      hljs.initHighlightingOnLoad();
       $(document).ready(function() {
         var content = "<a href='http://janusvr.com/'>JanusVR</a><br>";
         content += "<a href='http://secondlife.com/'>Second Life</a><br>";
@@ -136,17 +143,6 @@
           html: true,
           content: content
         });
-
-        var http = new XMLHttpRequest();
-        var url = "/api-js.html";
-        http.open("GET", url, true);
-
-    http.onreadystatechange = function() {
-      if(http.readyState == 4 && http.status == 200) {
-        $('.api-js').text(http.responseText);
-      }
-    }
-    http.send();
       });
     </script>
   </body>
