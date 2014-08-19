@@ -107,6 +107,9 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(request, response) {
   response.render('info');
 });
+app.get('/getting-started', function(request, response) {
+  response.render('getting-started');
+});
 
 app.get('/mvml/:file', function(request, response) {
   convert_mvml_file('./public/mvml/'+request.params.file+'.mvml', function(html) {
