@@ -35,14 +35,9 @@
         </div>
 
         <div class="subscribe">
-          <div class="col-md-3 col-sm-3"></div>
-          <div class="col-md-4 col-sm-4">
+          <div class="col-md-12 col-sm-12">
             <a class="btn btn-primary btn-lg" href="http://eepurl.com/0-ZR1">Get Started</a>
           </div>
-          <div class="col-md-2 col-sm-2">
-            <a class="btn btn-link btn-lg" href="https://github.com/JScott/mvml">self-hosted</a>
-          </div>
-          <div class="col-md-3 col-sm-2"></div>
         </div>
       </div>
     </div>
@@ -51,7 +46,7 @@
       <h1>Why is MVML for me?</h1>
       <p class="lead">
         <a class="other-options" data-toggle="popover" data-placement="bottom">Many frameworks</a>
-        provide one-off 3D web experiences and proprietary 3D browsers.<br>
+        provide one-off 3D web experiences and proprietary 3D browsers.
         MVML specializes in helping you build and share a network of first-person worlds.
       </p>
       <div class="row">
@@ -82,17 +77,30 @@
     <section class="getting-started shaded">
       <div class="container">
         <h1>Getting Started</h1>
-        <p>
+        <p class="lead">
           MVML isn't natively supported by browsers so it needs to be parsed into HTML/JS.
-          You can utilize our API or host your own MVML parsing server to do this for you.
+          Our API makes that an easy step for you.
         </p>
+        <div class="col-md-6">
         <h2>Quick</h2>
         <p>
-          The easiest way to utilize this is to make an API request via JavaScript.
-          <a href="https://gist.github.com/JScott/06157326c997500a91b8">These examples</a>
-          show you how to have the JavaScript do the API call for you and edit MVML in-line
-          or in another file.
+          The quickest way to utilize this is to make an API request from an HTML page.
+          We've built a helper script that can load your MVML from file or directly:
         </p>
+        <code><pre>
+&lt;head>
+  &lt;script src="http://content.dev.mvml.net:6865/js/mvml-api.js">&lt;/script>
+  &lt;script>
+    MVML.load_file("http://dev.mvml.net/mvml/spec.mvml");
+  &lt;/script>
+&lt;/head></pre></code>
+        <p>
+          That's it! You can even use <code>MVML.load_string</code> to get the MVML from
+          wherever is most convenient. You could even grab it from the <code>body</code> tag.
+          Be careful of indentation though, MVML is very strict on whitespace.
+        </p>
+        </div>
+        <div class="col-md-6">
         <h2>Advanced</h2>
         <p>
           If you have access to server-side code you can also make a call from there.
@@ -100,6 +108,11 @@
           show how I do it for this very page in NodeJS.
           It should be pretty similar across frameworks.
         </p>
+        <p>
+          Privacy issues? You can also host the MVML parsing server yourself.
+          Check out the <a href="https://github.com/JScott/mvml">Github</a> page for more details.
+        </p>
+        </div>
       </div>
     </section>
       <hr>
