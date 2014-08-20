@@ -56,22 +56,31 @@
         <h2>Quick</h2>
         <p>
           The quickest way to utilize this is to make an API request from an HTML page.
-          We've built a helper script that can load your MVML from file or directly:
+          We've built a helper script that can handle that for you:
         </p>
-        <pre><code class="html">&lt;head>
-  &lt;script src="<a href="http://content.dev.mvml.net:6865/js/mvml-api.js">http://content.dev.mvml.net:6865/js/mvml-api.js</a>">&lt;/script>
-  &lt;script>
-    MVML.load_file("<a href="http://dev.mvml.net/mvml/spec.mvml">http://dev.mvml.net/mvml/spec.mvml</a>");
-  &lt;/script>
-&lt;/head></code></pre>
+        <pre><code class="html">&lt;script src="<a href="http://content.dev.mvml.net:6865/js/mvml-api.js">http://content.dev.mvml.net:6865/js/mvml-api.js</a>">&lt;/script>
+&lt;script>
+  window.onload = function() {
+    MVML.load_string(document.getElementsByTagName("mvml")[0].innerHTML);
+  }
+&lt;/script>
+&lt;mvml>
+---
+title: JavaScript test
+player:
+  start: (0, 0, 20)
+  gravity: 0
+scene:
+- primitive: sphere
+  position: (0, 4, 0)
+&lt;/mvml></code></pre>
         <p>
-          That's it! Just upload that to your website.
+          That's it! Just upload that to your website. You can also load it directly from a hosted MVML file:
         </p>
-        <p>
-          You can even use <code>MVML.load_string</code> to get the MVML from
-          wherever is most convenient. You could even grab it from the <code>body</code> tag.
-          Be careful of indentation though, MVML is very strict on whitespace.
-        </p>
+        <pre><code class="html">&lt;script src="<a href="http://content.dev.mvml.net:6865/js/mvml-api.js">http://content.dev.mvml.net:6865/js/mvml-api.js</a>">&lt;/script>
+&lt;script>
+  MVML.load_file("<a href="http://dev.mvml.net/mvml/spec.mvml">http://dev.mvml.net/mvml/spec.mvml</a>");
+&lt;/script></code></pre>
         </div>
         <div class="col-md-6">
         <h2>Advanced</h2>
@@ -105,21 +114,20 @@
             This is important because unlike XML, YAML is very strict on indentation.
             Even missing a space could cause an error which forces us to write legibly.
           </p>
-          <pre><code class="yaml"># Good:
+          <pre><code class="yaml"># Valid:
 title: Hello metaverse!
 scene:
-  - primative: sphere
-  - primative: box
-    color: red
+- primative: sphere
+- primative: box
+  color: red
 
-# Bad
+# Broken
  title: Hey metaverse
   scene:
 - primative:
 sphere
 - primative: box
-color: red
-          </code></pre>
+color: red</code></pre>
         </div>
         <div class="col-md-6 col-sm-6">
           <h2>Components</h2>
