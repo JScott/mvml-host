@@ -99,11 +99,6 @@ express.static.mime.define({
 });
 app.use(express.static(__dirname + '/public'));
 
-/*app.get('/favicon.ico', function(request, response) {
-  response.type('image/x-icon');
-  response.send(200);
-});*/
-
 app.get('/', function(request, response) {
   response.render('info');
 });
