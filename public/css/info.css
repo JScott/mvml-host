@@ -41,3 +41,16 @@ section {
 section.shaded {
   background: #eee;
 }
+
+div.showcase div.iframe-overlay {
+  position:relative;
+  bottom:305px;
+  right:0;
+  margin:3%;
+  width:93%;
+  height:94%;
+  /*background:rgba(255,255,255,0.8); or just this*/
+  z-index:50;
+  pointer-events:none;
+  color:#fff;
+}
