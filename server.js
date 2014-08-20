@@ -39,6 +39,21 @@ db.exists(function (err, exists) {
 // ShortID
 var short_id = require('shortid');
 
+// CORS
+/*var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+app.use(allowCrossDomain);*/
+
 // MVML
 var mvml_server_post = {
   host: '127.0.0.1',
@@ -46,7 +61,7 @@ var mvml_server_post = {
   path: '/',
   method: 'POST',
   headers: {
-    'Content-Type': 'application/mvml'
+    'Content-Type': 'text/mvml'
   }
 };
 function make_request(options, body, callback) {
@@ -64,18 +79,37 @@ function make_request(options, body, callback) {
   post_request.write(body);
   post_request.end();
 }
+function convert_mvml(mvml_string, callback) {
+  mvml_server_post.headers['Content-Length'] = mvml_string.length;
+  make_request( mvml_server_post, mvml_string, callback );
+}
+function convert_mvml_file(file_path, callback) {
+  fs.readFile(file_path, function(error, data) {
+    if (error) {
+      callback('Error reading MVML file: '+data);
+    }
+    convert_mvml(data, function(html) {
+      callback(html);
+    });
+  });
+}
 
-
-
+express.static.mime.define({
+  'text/mvml': ['mvml']
+});
 app.use(express.static(__dirname + '/public'));
 
-/*app.get('/favicon.ico', function(request, response) {
-  response.type('image/x-icon');
-  response.send(200);
-});*/
-
 app.get('/', function(request, response) {
-  response.render('index');
+  response.render('info');
+});
+app.get('/getting-started', function(request, response) {
+  response.render('getting-started');
+});
+
+app.get('/mvml/:file', function(request, response) {
+  convert_mvml_file('./public/mvml/'+request.params.file+'.mvml', function(html) {
+    response.send(html);
+  });
 });
 
 app.get('/new', function(request, response) {
@@ -96,7 +130,7 @@ app.get('/space/:id', function(request, response) {
   console.log("id: "+request.params.id);
 	db.get(request.params.id, function(error, document) {
     if (error) {
-      response.send('Invalid space ID');
+      response.send('Invalid space ID: '+request.params.id);
     }
     else {
       var object = JSON.parse(document);
@@ -121,13 +155,15 @@ app.get('/space/edit/:id', function(request, response) {
 app.post('/edit/:id', function(request, response) {
   // TODO: check credentials
   var mvml = request.body.mvml;
-  mvml_server_post.headers['Content-Length'] = mvml.length;
-  make_request(mvml_server_post, mvml, function(response_data){
+  convert_mvml(mvml, function(html){
     db.merge(request.params.id, {
       name: request.body.name,
       mvml: request.body.mvml,
-      html: response_data
+      html: html
     }, function(error, db_response) {
+      if (error) {
+        response.send("Couldn't save MVML entry: "+request.params.id);
+      }
       response.redirect('/space/'+request.params.id);
     });
   });
