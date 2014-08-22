@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var http = require('http');
 
 // Express
@@ -107,7 +108,9 @@ app.get('/getting-started', function(request, response) {
 });
 
 app.get('/mvml/:file', function(request, response) {
-  convert_mvml_file('./public/mvml/'+request.params.file+'.mvml', function(html) {
+  var relative_path = './public/mvml/'+request.params.file+'.mvml';
+  var absolute_path = path.resolve(__dirname, relative_path);
+  convert_mvml_file(absolute_path, function(html) {
     response.send(html);
   });
 });
